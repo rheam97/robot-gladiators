@@ -16,13 +16,27 @@ var enemyAttack = 12;
 var playerMoney = 10;
 
 var fight = function (enemyName) {
-    while (enemyHealth >0) {
+    while (playerHealth >0 && enemyHealth >0) {
     //fight function statements
     //Alert players that they are starting the round
     // fight prompt
     var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
     //log a resulting message
     console.log(promptFight);
+    if (promptFight === "skip" || promptFight === "SKIP") {
+        // confirm player wants to skip
+        var confirmSkip = window.confirm("Are you sure you would like to quit?");
+    
+        //if yes (true) leave fight
+         // if player chooses skip
+    if (confirmSkip) {
+            window.alert(playerName + " has chosen to leave the fight. Goodbye!");
+            //subtract money for quitting
+            playerMoney = playerMoney -10;
+            console.log("playerMoney", playerMoney);
+            break;
+        }
+    }
     //  if player chooses to fight, then fight
     if (promptFight=== "fight" || promptFight === "FIGHT") {
        // remove ememy Health by subtracting playerAttack
@@ -31,6 +45,7 @@ var fight = function (enemyName) {
     // check enemy health
     if (enemyHealth<=0) {
         window.alert(enemyName + " has died!");
+        break;
     }
     else {
         window.alert(enemyName + " still has " + enemyHealth + " health left.");
@@ -44,30 +59,19 @@ var fight = function (enemyName) {
     //check player health
     if (playerHealth<=0) {
         window.alert(playerName + " has died!");
+        break;
     }
     else {
         window.alert(playerName + " still has " + playerHealth + " health left.");
     }
-    }     // if player chooses skip
-    else if (promptFight === "skip" || promptFight === "SKIP") {
-    // confirm player wants to skip
-    var confirmSkip = window.confirm("Are you sure you would like to quit?");
-
-    //if yes (true) leave fight
-    if (confirmSkip) {
-        window.alert(playerName + " has chosen to leave the fight. Goodbye!");
-        //subtract money for quitting
-        playerMoney = playerMoney -2;
-    }
+    }    
     // if no, (false), ask question again by running fight()
     else {
         fight();
     }
-}
     else {
         window.alert("You need to choose a valid option. Try again!");
-    }
-}
+        }
 };
 
 for(var i = 0; i < enemyNames.length; i++) {
